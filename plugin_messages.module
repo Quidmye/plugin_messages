@@ -1,0 +1,19 @@
+<?php
+
+function plugin_messages_preprocess_page(&$variables)
+{
+  $plugin_service = \Drupal::service('plugin.manager.plugin_messages');
+  foreach ($plugin_service->getDefinitions() as $plugin_id => $plugin) {
+    $instance = $plugin_service->createInstance($plugin_id);
+    $pages = implode("\n", $instance->getPages());
+    $current_path = \Drupal::service('path.current')->getPath();
+    $path_match = \Drupal::service('path.matcher')->matchPath($current_path, $pages);
+    if (!\Drupal::currentUser()->isAuthenticated() && (empty($instance->getPages()) || $path_match)) {
+      $variables['#attached']['library'][] = 'plugin_messages/modal.message.js';
+      $variables['#attached']['drupalSettings']['plugin_messages']['title'] = $instance->getTitle();
+      $variables['#attached']['drupalSettings']['plugin_messages']['message'] = $instance->getMessage();
+      $variables['#attached']['drupalSettings']['plugin_messages']['time'] = $instance->getTime();
+      $variables['#attached']['drupalSettings']['plugin_messages']['unit'] = $instance->getUnit();
+    }
+  }
+}

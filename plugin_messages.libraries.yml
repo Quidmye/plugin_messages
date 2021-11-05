@@ -1,0 +1,6 @@
+modal.message.js:
+  version: 1.x
+  js:
+    js/modal_message.js: {}
+  dependencies:
+    - core/drupal.dialog.ajax

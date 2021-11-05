@@ -1,0 +1,7 @@
+plugin_messages.settings:
+  path: '/admin/config/plugin_messages/settings'
+  defaults:
+    _form: '\Drupal\plugin_messages\Form\PluginMessagesForm'
+    _title: 'Plugin Messages'
+  requirements:
+    _permission: 'administer site configuration'

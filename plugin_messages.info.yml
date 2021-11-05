@@ -1,0 +1,7 @@
+name: Plugin Messages
+description: 'Modal Messages'
+type: module
+core: 8.x
+version: 1.x
+package: Custom
+configure: plugin_messages.settings
